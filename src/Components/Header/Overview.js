@@ -18,6 +18,7 @@ const doughnutData = {
     }],
 };
 
+
 const data = {
     labels: ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o'],
     datasets: [{
@@ -49,6 +50,54 @@ const data = {
     }]
 }
 
+const doughnutData2 = {
+    label: [' ',' '],
+    datasets: [{
+        label: '# of Votes',
+        data: [30, 10],
+        backgroundColor: [
+            '#ff00ff',
+            '#f984e5',
+        ],
+        weight : 10,
+        borderWidth : '1px',
+        hoverBorderWidth : '0px',
+        borderAlign:'center'
+    }],
+    
+};
+
+const data2 = {
+    labels: ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o'],
+    datasets: [{
+        barPercentage: 0.5,
+        barThickness: 9,
+        maxBarThickness: 10,
+        minBarLength: 2,
+        radius:3,
+        label: '',
+        data: [12, 10, 8, 16, 6, 9, 20, 10, 7, 14, 5, 10, 14, 15, 7],
+        backgroundColor: [
+            '#ff00ff',
+            '#f984e5',
+            '#ff00ff',
+            '#f984e5',
+            '#ff00ff',
+            '#f984e5',
+            '#ff00ff',
+            '#f984e5',
+            '#ff00ff',
+            '#f984e5',
+            '#ff00ff',
+            '#f984e5',
+            '#ff00ff',
+            '#f984e5',
+            '#ff00ff',
+        ],
+        borderWidth: 1
+    }]
+}
+
 const options = {
     scales: {
         yAxes: [{
@@ -71,7 +120,7 @@ const options = {
     },
     legend: {
         display: false,
-    }
+    },
 }
 
 
@@ -100,7 +149,8 @@ class Overview extends React.Component {
         this.state = {
             todoList : [],
             currentPage: 1,
-            todosPerPage: 20
+            todosPerPage: 20,
+            isLoading:true
         }
         this.taskRef = React.createRef() 
     }
@@ -118,14 +168,15 @@ class Overview extends React.Component {
 
     todoList = () => {
         axios.get('https://jsonplaceholder.typicode.com/todos').then((res)=>{
-            console.log(res.data)
-            this.setState({
-                todoList: res.data
-            })
+            
+                this.setState({
+                    todoList: res.data,
+                    isLoading:false
+                })
         })
     }
     render() {
-        const {todoList, currentPage, todosPerPage} = this.state;
+        const {todoList, currentPage, todosPerPage, isLoading} = this.state;
         const indexOfLastTodo = currentPage * todosPerPage;
         const indexOfFirstTodo = indexOfLastTodo - todosPerPage;
         const currentTodos = todoList.slice(indexOfFirstTodo, indexOfLastTodo);
@@ -164,9 +215,11 @@ class Overview extends React.Component {
                 <div className="container-fluid height_600">    
                     <div className="row content h_100">
                         <div className="col-sm-12 inside_graph"> 
-                            <div className='row height_200 bb_solid py_0'>
-                                <div className='col-sm-5 h_100 br_solid'>
-                                    <div className='row flex_ac'>
+                            <div className='row height_600 bb_solid py_0 flex_ac'>
+                                <div className='col-sm-5 h_100 br_solid pt_30 px_15'>
+                                <span>General results</span>
+                                <h3 className='mb_50_pt_20'>9.401 <span className='table_head'>  Followers</span></h3>
+                                    <div className='row flex_abaseline'>
                                         <div className='col-sm-8'>
                                             <Bar data={data} options={options} />
                                         </div>
@@ -175,13 +228,15 @@ class Overview extends React.Component {
                                         </div>
                                     </div>
                                 </div>
-                                <div className='col-sm-5 h_100 br_solid'>
-                                    <div className='row flex_ac'>
+                                <div className='col-sm-5 h_100 br_solid pt_30 px_15'>
+                                <span>Ratings by Category</span>
+                                <h3 className='mb_50_pt_20'>3.900 <span className='table_head'>  Followers</span></h3>
+                                    <div className='row flex_abaseline'>
                                         <div className='col-sm-8'>
-                                            <Bar data={data} options={options} />
+                                            <Bar data={data2} options={options} />
                                         </div>
                                         <div className='col-sm-4'>
-                                            <Doughnut data={doughnutData} width={100} />
+                                            <Doughnut data={doughnutData2} width={100} />
                                         </div>
                                     </div>
                                 </div>
@@ -200,8 +255,9 @@ class Overview extends React.Component {
                                     })}
                                 </div>
                             </div>
+                            {isLoading ? <h1 className='loader'><i class="bi bi-arrow-repeat"></i></h1> :
                             <div className="col-sm-9">
-                                <div className='row'>
+                                <div className='row pt_20'>
                                     <h5 ref={this.taskRef}>Tasks</h5>
                                 </div>
                                 <div >
@@ -233,17 +289,18 @@ class Overview extends React.Component {
                                     </tbody>
                                 </table>
                                 </div>
-                            </div>
+                            </div>}
                         </div>
                     </div>
+                    {isLoading ? null :
                     <div className='row flex_ac'>
-                               <div className='col-sm-4 px_0 pages_shown' >
-                                    Showing <span className='h6'>{indexOfFirstTodo}</span> to <span className='h6'>{indexOfLastTodo}</span> of {todoList.length} elements
-                               </div>
-                            <div className='col-sm-8 dflex_end px_0'>
-                            Pages {renderPageNumbers}
-                            </div>
-                        </div>
+                    <div className='col-sm-4 px_0 pages_shown' >
+                         Showing <span className='h6'>{indexOfFirstTodo}</span> to <span className='h6'>{indexOfLastTodo}</span> of {todoList.length} elements
+                    </div>
+                 <div className='col-sm-8 dflex_end px_0'>
+                 Pages {renderPageNumbers}
+                 </div>
+             </div>}
                 </div>
             </div>
         )

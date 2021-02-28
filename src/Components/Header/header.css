@@ -2,8 +2,7 @@
     padding: 10px 0px;
 }
 .header_main {
-    /* background-color: white; */
-    padding: 20px 30px 10px 10px;
+    padding: 20px 30px 0px 10px;
     border-bottom: 1px solid #f1f3f2;
     margin: 0px;
 }
@@ -24,9 +23,23 @@
 .height_200 {
     height: 200px;
 }
+.height_220 {
+    height: 220px;
+}
 .py_0 {
     padding-top: 0px;
     padding-bottom: 0px;
+}
+.pt_30 {
+    padding-top: 30px;
+}
+.px_15 {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+.mb_50_pt_20 {
+    margin-bottom: -50px;
+    padding-top: 20px;
 }
 .px_0 {
     padding-left: 0px;
@@ -34,6 +47,9 @@
 }
 .flex_ac {
     align-items: center;
+}
+.flex_abaseline {
+    align-items: baseline;
 }
 .dflex_end {
     text-align: end;
@@ -82,16 +98,29 @@
 }
 .disabled_tab { 
     color: grey;
+    font-size: 13px;
+    padding-bottom: 15px;
+    margin-top: 8px;
 }
 .activeTab {
     border-bottom:2px solid #0080ff;
-    /* color:#444; */
+    font-size: 13px;
+    padding-bottom: 15px;
+    margin-top: 8px;
+    color: #0080ff;
 }
-
+.loader {
+    margin: 0 auto;
+    display: block;
+    text-align: center;
+    padding: 40px 0px;
+}
 .m_center {
     text-align: center;
 }
-
+.justify_center {
+    justify-content: center;
+}
 .pages_shown {
     font-size: 13px;
     color: grey;
@@ -130,10 +159,20 @@
 .pt_20 {
     padding-top: 20px;
 }
+
 .inserted_txt{ 
     color: grey;
     opacity: 0.8;
     font-weight: regular;
+}
+.header_select {
+    border-bottom: 3px solid #0080ff;
+    position: relative;
+    color:#0080ff;
+}
+.header_select_inside {
+    margin: 0;
+    transform: translate(-50%, -50%);
 }
 .vertical_select {
     border-right: 3px solid #0080ff;
