@@ -2,6 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import { Doughnut, Bar } from 'react-chartjs-2';
 
+
 const doughnutData = {
     label: [' ',' '],
     datasets: [{
@@ -123,7 +124,7 @@ const options = {
     },
 }
 
-
+// here I made static term values array of objects
 const termScore = [
     {
         name : 'TERM 1',
@@ -156,7 +157,7 @@ class Overview extends React.Component {
     }
 
     handleClick = (event) => {
-        this.taskRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' })
+        this.taskRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' }) // on every page change automatically scroll to top
         this.setState({
           currentPage: Number(event.target.id)
         });
@@ -168,7 +169,6 @@ class Overview extends React.Component {
 
     todoList = () => {
         axios.get('https://jsonplaceholder.typicode.com/todos').then((res)=>{
-            
                 this.setState({
                     todoList: res.data,
                     isLoading:false
@@ -176,11 +176,13 @@ class Overview extends React.Component {
         })
     }
     render() {
-        const {todoList, currentPage, todosPerPage, isLoading} = this.state;
-        const indexOfLastTodo = currentPage * todosPerPage;
-        const indexOfFirstTodo = indexOfLastTodo - todosPerPage;
-        const currentTodos = todoList.slice(indexOfFirstTodo, indexOfLastTodo);
+        const {todoList, currentPage, todosPerPage, isLoading} = this.state; //destructing all the states at one place
+        const indexOfLastTodo = currentPage * todosPerPage; //to find the last todo number
+        const indexOfFirstTodo = indexOfLastTodo - todosPerPage; //to find first todo number
+        const currentTodos = todoList.slice(indexOfFirstTodo, indexOfLastTodo); //now will render the list of data by using slice to appear at first render
 
+
+        // this logic used to show number of pages, where number of list items appear on each page
         const pageNumbers = [];
         for (let i = 1; i <= Math.ceil(todoList.length / todosPerPage); i++) {
           pageNumbers.push(i);
@@ -190,9 +192,10 @@ class Overview extends React.Component {
           return (
               <button key={number}
               id={number}
-              onClick={this.handleClick} className={number === currentPage ? 'btn_pages-disabled' : 'btn_pages'}>{number}</button>
+              onClick={this.handleClick} className={number === currentPage ? 'btn_pages-disabled' : 'btn_pages'}>{number}</button> // here selected button and non selected buttons have different classes where the selected button have btn_pages-disabled and on the other side non selected button have btn_pages
           );
         });
+
 
         return (
             <div>
@@ -255,7 +258,7 @@ class Overview extends React.Component {
                                     })}
                                 </div>
                             </div>
-                            {isLoading ? <h1 className='loader'><i class="bi bi-arrow-repeat"></i></h1> :
+                            {isLoading ? <h1 className='loader'><i className="bi bi-arrow-repeat"></i></h1> :
                             <div className="col-sm-9">
                                 <div className='row pt_20'>
                                     <h5 ref={this.taskRef}>Tasks</h5>

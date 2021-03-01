@@ -5,7 +5,6 @@ class Sidebar extends React.Component {
     
     render() {
         const {siderTabs, activeSideTab, handleSideChange} = this.props;
-
         return (
             <div style={{height:'100vh'}}>
                 <div className="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical" style={{height:'50%'}}>

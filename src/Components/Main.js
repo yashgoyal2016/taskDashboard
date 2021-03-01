@@ -5,6 +5,7 @@ import Overview from '../Components/Header/Overview';
 import Analytics from '../Components/Header/Analytics';
 import Campaign from '../Components/Header/Campaign';
 
+// all the header items
 const HeaderTabs = [
     {
         title: 'Overview',
@@ -20,6 +21,7 @@ const HeaderTabs = [
     }
 ]
 
+// all the sidebar items
 const siderTabs = [
     {
         icon : 'bi-speedometer2',
@@ -45,17 +47,18 @@ const siderTabs = [
 
 class Main extends React.Component {
     state = {
-        activeTab : 1,
-        activeSideTab : 1
+        activeTab : 1, //activeTab for header
+        activeSideTab : 1 //activeTab for sidebar
     }
 
-    
+    //handleChange for header
     handleChange = (id) => {
         this.setState({
             activeTab : id
         })
     }
 
+    //handleSideChange for sidebar
     handleSideChange = (id) => {
         this.setState({
             activeSideTab : id

@@ -17,7 +17,7 @@ class Header extends React.Component {
                 <div className='col-sm-8 m_center'>
                     <div className='row py_0 justify_center'>
                         {
-                            HeaderTabs.map((header) => (<div className={`col-sm-2 ${activeTab === header.id ? 'activeTab': 'disabled_tab'}` } key={header.id} onClick={() => handleChange(header.id)}>{header.title}</div>))
+                            HeaderTabs.map((header) => (<div className={`col-sm-2 ${activeTab === header.id ? 'activeTab': 'disabled_tab'}` } key={header.id} onClick={() => handleChange(header.id)}>{header.title}</div>))  // here it matches the active id by user selection and change the className appearance. 
                         }
                     </div>
                 </div>
